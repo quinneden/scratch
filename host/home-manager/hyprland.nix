@@ -15,7 +15,6 @@ let
   playerctl = "${pkgs.playerctl}/bin/playerctl";
   brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
   pactl = "${pkgs.pulseaudio}/bin/pactl";
-  screenshot = import ./scripts/screenshot.nix pkgs;
 in
 {
   xdg.desktopEntries."org.gnome.Settings" = {
@@ -133,8 +132,6 @@ in
           "SUPER, Tab,     ${e} -t overview"
           ",XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
           ",XF86Launch4,   ${e} -r 'recorder.start()'"
-          ",Print,         exec, ${screenshot}"
-          "SHIFT,Print,    exec, ${screenshot} --full"
           "SUPER, Return, exec, xterm" # xterm is a symlink, not actually xterm
           "SUPER, W, exec, firefox"
           "SUPER, E, exec, wezterm -e lf"

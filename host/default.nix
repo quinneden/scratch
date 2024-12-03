@@ -1,9 +1,12 @@
 {
+  asztal,
   config,
   inputs,
   lib,
   pkgs,
   secrets,
+  specialArgs,
+  ...
 }:
 let
   flakeImports = with inputs; [
@@ -29,7 +32,7 @@ in
         username = "quinn";
         homeDirectory = "/home/quinn";
         sessionPath = [ "$HOME/.local/bin" ];
-        stateVersion = "25.04";
+        stateVersion = "25.05";
       };
       imports = [ ./home-manager ];
     };
@@ -43,5 +46,5 @@ in
     };
   };
 
-  system.stateVersion = "25.04";
+  system.stateVersion = "25.05";
 }

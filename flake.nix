@@ -7,6 +7,10 @@
     ags.url = "github:quinneden/ags";
     astal.url = "github:quinneden/astal";
     nix-shell-scripts.url = "github:quinneden/nix-shell-scripts";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    matugen.url = "github:InioX/matugen";
+    micro-autofmt-nix.url = "github:quinneden/micro-autofmt-nix";
+    micro-colors-nix.url = "github:quinneden/micro-colors-nix";
 
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-2.tar.gz";
@@ -22,11 +26,20 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    firefox-gnome-theme = {
+      url = "github:rafaelmardojai/firefox-gnome-theme";
+      flake = false;
+    };
   };
 
   outputs =
-    { self, nixpkgs }@inputs:
+    { self, nixpkgs, ... }@inputs:
     let
+      forAllSystems = inputs.nixpkgs.lib.genAttrs [
+        "aarch64-darwin"
+        "aarch64-linux"
+      ];
       secrets = builtins.fromJSON (builtins.readFile .secrets/common.json);
       system = "aarch64-linux";
 
@@ -50,5 +63,27 @@
           modules = [ ./host ];
         };
       };
+
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          lib = nixpkgs.lib;
+        in
+        {
+          default = pkgs.mkShell {
+            shellHook = ''
+              set -e
+              ${lib.getExe pkgs.nixos-rebuild} switch \
+                --fast --show-trace \
+                --flake .#nixos-macmini \
+                --target-host "root@10.0.0.243" \
+                --build-host "root@10.0.0.243" \
+                -j0
+              exit 0
+            '';
+          };
+        }
+      );
     };
 }

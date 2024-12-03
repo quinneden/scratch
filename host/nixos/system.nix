@@ -43,11 +43,6 @@
 
   programs.dconf.enable = true;
 
-  programs.nh = {
-    enable = true;
-    flake = /home/quinn/.dotfiles;
-  };
-
   programs.direnv = {
     enable = true;
     silent = false;
@@ -85,9 +80,8 @@
     excludePackages = [ pkgs.xterm ];
   };
 
-  programs.ssh = {
+  services.openssh = {
     enable = true;
-    startAgent = true;
     settings.PermitRootLogin = "yes";
   };
 
