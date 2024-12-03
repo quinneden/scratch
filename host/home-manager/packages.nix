@@ -1,0 +1,30 @@
+{ pkgs, inputs, ... }:
+{
+  home.packages = with pkgs; [
+    bat
+    eza
+    fd
+    fzf
+    gh
+    git-crypt
+    git-lfs
+    glow
+    gnumake
+    gnupg
+    gptfdisk
+    inputs.nix-shell-scripts.packages.aarch64-linux.default
+    jq
+    lazydocker
+    lazygit
+    nh
+    nil
+    nixfmt-rfc-style
+    nodejs
+    pure-prompt
+    python3
+    rclone
+    ripgrep
+    udiskie
+    zoxide
+  ];
+}
