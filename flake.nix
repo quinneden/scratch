@@ -4,8 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     hyprland.url = "github:hyprwm/hyprland";
-    ags.url = "github:quinneden/ags";
-    astal.url = "github:quinneden/astal";
+    ags.url = "github:aylur/ags/v1";
+    astal.url = "github:aylur/astal";
     nix-shell-scripts.url = "github:quinneden/nix-shell-scripts";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     matugen.url = "github:InioX/matugen";
