@@ -5,6 +5,7 @@
     ./hyprland.nix
     ./locale.nix
     ./nautilus.nix
+    ./overlays.nix
     ./system.nix
   ];
 }

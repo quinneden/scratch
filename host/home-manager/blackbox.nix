@@ -18,9 +18,9 @@
 
     settings = {
       command-as-login-shell = true;
-      custom-shell-command = "${pkgs.tmux}/bin/tmux";
+      custom-shell-command = "${pkgs.zsh}/bin/zsh";
       use-custom-command = true;
-      font = "CaskaydiaCove Nerd Font 12";
+      font = "CaskaydiaCove Nerd Font 13";
       fill-tabs = true;
       show-headerbar = false;
       pretty = true;
