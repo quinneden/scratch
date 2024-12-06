@@ -78,8 +78,7 @@
                 --fast --show-trace \
                 --flake .#nixos-macmini \
                 --target-host "root@10.0.0.243" \
-                --build-host "root@10.0.0.243" \
-                -j0
+                --build-host "root@10.0.0.243"
               exit 0
             '';
           };
