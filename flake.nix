@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     hyprland.url = "github:hyprwm/hyprland";
     ags.url = "github:aylur/ags/v1";
-    astal.url = "github:aylur/astal";
+    astal.url = "github:quinneden/astal";
     nix-shell-scripts.url = "github:quinneden/nix-shell-scripts";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     matugen.url = "github:InioX/matugen";
@@ -34,7 +34,12 @@
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      astal,
+      ...
+    }@inputs:
     let
       forAllSystems = inputs.nixpkgs.lib.genAttrs [
         "aarch64-darwin"
@@ -51,14 +56,26 @@
     in
     {
       formatter.${system} = pkgs.nixfmt-rfc-style;
-      packages.${system}.default = pkgs.callPackage ./ags { inherit inputs; };
+      packages.${system}.default = astal.lib.mkLuaPackage {
+        inherit pkgs;
+        name = "lazarus";
+        src = ./astal;
+
+        extraPackages = [
+          astal.packages.${system}.io
+          astal.packages.${system}.astal3
+          astal.packages.${system}.astal4
+          pkgs.dart-sass
+          pkgs.gdk-pixbuf
+        ];
+      };
 
       nixosConfigurations = {
         nixos-macmini = nixpkgs.lib.nixosSystem {
           inherit system pkgs;
           specialArgs = {
             inherit inputs secrets;
-            asztal = self.packages.${system}.default;
+            lazarus = self.packages.${system}.default;
           };
           modules = [ ./host ];
         };

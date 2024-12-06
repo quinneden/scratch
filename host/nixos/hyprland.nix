@@ -2,7 +2,7 @@
   pkgs,
   inputs,
   config,
-  asztal,
+  lazarus,
   lib,
   ...
 }:
@@ -95,14 +95,14 @@
 
     services.greetd = {
       enable = true;
-      settings.default_session.command = pkgs.writeShellScript "greeter" ''
-        export XKB_DEFAULT_LAYOUT=${config.services.xserver.xkb.layout}
-        export XCURSOR_THEME=Qogir
-        ${asztal}/bin/greeter
-      '';
+      # settings.default_session.command = pkgs.writeShellScript "greeter" ''
+      #   export XKB_DEFAULT_LAYOUT=${config.services.xserver.xkb.layout}
+      #   export XCURSOR_THEME=Qogir
+      #   ${asztal}/bin/greeter
+      # '';
     };
 
-    systemd.tmpfiles.rules = [ "d '/var/cache/greeter' - greeter greeter - -" ];
+    # systemd.tmpfiles.rules = [ "d '/var/cache/greeter' - greeter greeter - -" ];
 
     system.activationScripts.wallpaper =
       let

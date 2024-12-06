@@ -1,5 +1,5 @@
 {
-  asztal,
+  lazarus,
   config,
   inputs,
   lib,
